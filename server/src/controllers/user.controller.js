@@ -3,8 +3,8 @@ const Post = require('../models/post.model');
 
 // POST /users: Create a new user
 const CreateNewUser= async (req, res) => {
+  const { name, email, bio } = req.body;
   try {
-    const { name, email, bio } = req.body;
     const user = new User({ name, email, bio });
     await user.save();
     res.status(201).send(user);
@@ -16,11 +16,17 @@ const CreateNewUser= async (req, res) => {
 // GET /users/{id}: Retrieve a user by id
  const GetUserById=async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).send({ message: 'User not found' });
+    const id=req.params.id
+    if(id!="all"){
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+     return res.status(200).send(user);
     }
-    res.send(user);
+    const allUsers=await User.find()
+    return res.status(201).send(allUsers)
+
   } catch (error) {
     res.status(500).send(error.message);
   }
