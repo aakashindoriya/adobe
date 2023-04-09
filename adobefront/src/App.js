@@ -1,7 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import { useDispatch,useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { addNewUser,getAllusers,updateUser,deleteUser,getUserById } from './redux/actions/user.actions';
 
 function App() {
+  const dispatch=useDispatch()
+  const user=useSelector(s=>s.user)
+  useEffect(()=>{
+    dispatch(getUserById("64311a1feb13020cc1730f9c"))
+  },[])
+ console.log(user)
   return (
     <div className="App">
       <header className="App-header">

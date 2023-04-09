@@ -1,0 +1,7 @@
+export const GET_All_POST="post/getallpost"
+export const GET_POST_BY_ID="post/getpostbyid"
+export const DELETE_POST="post/deletepost"
+export const ADD_NEW_POST="post/addnewpost"
+export const UPDATE_POST="post/updatepost"
+export const ERROR="post/error"
+export const LOADING="post/loading"
