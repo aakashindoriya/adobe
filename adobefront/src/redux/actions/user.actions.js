@@ -5,7 +5,6 @@ try {
     dispatch({type:LOADING})
     const {email,bio,name} =data
     const res=await axios.post(`${process.env.REACT_APP_BASE_URL}/users/`,{email,bio,name})
-    
     return dispatch({type:ADD_NEW_USER,payload:res.data})
 } catch (error) {
     return dispatch({type:ERROR,payload:error.response.data})

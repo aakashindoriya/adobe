@@ -5,7 +5,14 @@ try {
     dispatch({type:LOADING})
     const {content ,user_id} =data
     const res=await axios.post(`${process.env.REACT_APP_BASE_URL}/posts/`,{content ,user_id})
-    
+    data.toast({
+        title: "Success!",
+        description: "Post created successfully.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+    })
     return dispatch({type:ADD_NEW_POST,payload:res.data})
 } catch (error) {
     return dispatch({type:ERROR,payload:error.response.data})

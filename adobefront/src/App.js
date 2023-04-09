@@ -2,31 +2,22 @@ import logo from './logo.svg';
 import './App.css';
 import { useDispatch,useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import ChakraModal from './components/ChakraModal';
+import CreateUserForm from './components/UserForm';
+import CreatePostForm from './components/PostForm';
+import { getAllusers } from './redux/actions/user.actions';
 
 function App() {
-  const dispatch=useDispatch()
-  const user=useSelector(s=>s.user)
-  useEffect(()=>{
-    dispatch()
-  },[])
- console.log(user)
+const dispatch=useDispatch()
+useEffect(()=>{
+dispatch(getAllusers())
+},[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <ChakraModal>
+      <CreatePostForm />
+    </ChakraModal>
+    </>
   );
 }
 
