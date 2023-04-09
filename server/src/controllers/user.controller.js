@@ -67,7 +67,7 @@ const GetTotalUser = async (req, res) => {
     try {
       const users = await User.find();
       const count = users.length;
-      res.send(`Total number of users: ${count}`);
+      res.send(`count ${count}`);
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -76,30 +76,13 @@ const GetTotalUser = async (req, res) => {
 // GET /analytics/users/top-active: Retrieve the top 5 most active users, based on the number of posts
 const GetTopFive= async (req, res) => {
   try {
-    const topActiveUsers = await Post.aggregate([
-      { $group: { _id: '$user_id', count: { $sum: 1 } } },
-      { $sort: { count: -1 } },
-      { $limit: 5 },
-      {
-        $lookup: {
-          from: 'users',
-          localField: '_id',
-          foreignField: '_id',
-          as: 'user'
-        }
-      },
-      { $unwind: '$user' },
-      {
-        $project: {
-          _id: '$user._id',
-          name: '$user.name',
-          email: '$user.email',
-          bio: '$user.bio',
-          post_count: '$count'
-        }
-      }
+    const topUsers = await User.aggregate([
+      { $lookup: { from: "aposts", localField: "_id", foreignField: "user_id", as: "posts" } },
+      { $project: { _id: 1, name: 1, postCount: { $size: "$posts" } } },
+      { $sort: { postCount: -1 } },
+      { $limit: 5 }
     ]);
-    res.send(topActiveUsers);
+    res.send(topUsers);
   } catch (error) {
     res.status(500).send(error.message);
   }

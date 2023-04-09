@@ -100,7 +100,7 @@ const DislikeApost= async (req, res) => {
 const getPostCount = async (req, res) => {
     try {
       const postCount = await Post.find();
-      res.status(201).send(`Total number of posts: ${postCount.length}`);
+      res.status(201).send(`posts: ${postCount.length}`);
     } catch (err) {
         res.status(500).send(err.message);
     }
