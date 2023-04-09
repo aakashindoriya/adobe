@@ -1,4 +1,4 @@
-import {ADD_NEW_POST,DELETE_POST,ERROR,GET_All_POST,GET_POST_BY_ID,LOADING,UPDATE_POST} from "../actionTypes/post.actionType"
+import {ADD_NEW_POST,DELETE_POST,DISLIKE,ERROR,GET_All_POST,GET_POST_BY_ID,LIKE,LOADING,UPDATE_POST} from "../actionTypes/post.actionType"
 const initialState = {
     posts: [],
     post: {},
@@ -25,7 +25,7 @@ const initialState = {
       case DELETE_POST:
         return {
           ...state,
-          posts: state.posts.filter((post) => post.id !== action.payload),
+          posts: state.posts.filter((post) => post._id !== action.payload),
           loading: false,
           error: null,
         };
@@ -40,7 +40,7 @@ const initialState = {
         return {
           ...state,
           posts: state.posts.map((post) =>
-            post.id === action.payload.id ? action.payload : post
+            post._id === action.payload._id ? action.payload : post
           ),
           loading: false,
           error: null,
@@ -57,6 +57,22 @@ const initialState = {
           loading: true,
           error: null,
         };
+      case LIKE:return {
+        ...state,
+        posts: state.posts.map((post) =>
+            post._id === action.payload._id ? action.payload : post
+          ),
+          loading: false,
+          error: null,
+      }
+      case DISLIKE:return {
+        ...state,
+        posts: state.posts.map((post) =>
+            post._id === action.payload._id ? action.payload : post
+          ),
+          loading: false,
+          error: null,
+      }
       default:
         return state;
     }
