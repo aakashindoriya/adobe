@@ -62,6 +62,7 @@ export const getAllposts=()=>async(dispatch)=>{
  }
 
  export const likePost=(id)=>async(dispatch)=>{
+    console.log(id)
     try {
         dispatch({type:LOADING})
         const res=await axios.post(`${process.env.REACT_APP_BASE_URL}/posts/${id}/like`)
@@ -72,6 +73,7 @@ export const getAllposts=()=>async(dispatch)=>{
  }
 
  export const dislikePost=(id)=>async(dispatch)=>{
+    console.log(id)
     try {
         dispatch({type:LOADING})
         const res=await axios.post(`${process.env.REACT_APP_BASE_URL}/posts/${id}/unlike`)

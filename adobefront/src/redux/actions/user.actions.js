@@ -27,6 +27,14 @@ export const getAllusers=()=>async(dispatch)=>{
         dispatch({type:LOADING})
         const {_id,name,bio}=data
         const res=await axios.put(`${process.env.REACT_APP_BASE_URL}/users/${_id}`,{name,bio})
+        data.toast({
+            title: "Success!",
+            description: "User Updated Successfully.",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "top",
+        })
         return dispatch({type:UPDATE_USER,payload:res.data})
     } catch (error) {
         return dispatch({type:ERROR,payload:error.response.data})
